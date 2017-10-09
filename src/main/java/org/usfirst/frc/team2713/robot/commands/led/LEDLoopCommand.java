@@ -24,7 +24,7 @@ public class LEDLoopCommand extends Command {
     this.setInterruptible(true);
   }
   
-  public LEDLoopCommand(LEDSubsystem ledSubsystem, List<RGBValue> colors, int loops, int duration) {
+  public LEDLoopCommand(LEDSubsystem ledSubsystem, List<RGBValue> colors, int loops, double duration) {
     this.ledSubsystem = ledSubsystem;
     this.colors = colors;
     this.loops = loops;

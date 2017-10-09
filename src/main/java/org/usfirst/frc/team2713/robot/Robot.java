@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-	  ledSubsystem.colorSlowBlink(new RGBValue(255, 0, 0));
+	  ledSubsystem.colorBlink(new RGBValue(255, 0, 0), 2);
 	}
 
 	@Override

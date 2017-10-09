@@ -48,15 +48,14 @@ public class LEDSubsystem extends Subsystem {
     ledLoopCommand.start();
   }
   
-  public void colorSlowBlink(RGBValue color) {
+  public void colorBlink(RGBValue color, double duration) {
     cancelAllCommands();
     
-    int colorKeepSeconds = 2;
     List<RGBValue> colors = new ArrayList<>();
     colors.add(color); // Add main color
     colors.add(new RGBValue(0, 0, 0)); // All off
     
-    LEDLoopCommand ledLoopCommand = new LEDLoopCommand(this, colors, Integer.MAX_VALUE, colorKeepSeconds);
+    LEDLoopCommand ledLoopCommand = new LEDLoopCommand(this, colors, Integer.MAX_VALUE, duration);
     ledLoopCommand.start();
     commands.add(ledLoopCommand);
   }
