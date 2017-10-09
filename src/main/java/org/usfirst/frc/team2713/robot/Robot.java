@@ -7,9 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2713.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2713.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2713.robot.subsystems.LEDSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,6 +20,8 @@ import org.usfirst.frc.team2713.robot.subsystems.ExampleSubsystem;
 public class Robot extends IterativeRobot {
   private static Robot robotInstance;
   private static OI oi;
+  
+  private LEDSubsystem ledSubsystem;
   
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
  
@@ -36,10 +37,13 @@ public class Robot extends IterativeRobot {
 	  DriverStation.reportWarning("System coming alive, captian!", false);
 	  robotInstance = this;
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		
+		initSubsystems();
 	}
+	
+	private void initSubsystems() {
+	  ledSubsystem = new LEDSubsystem();
+  }
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -48,7 +52,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+	  ledSubsystem.colorSlowBlink(new RGBValue(255, 0, 0));
 	}
 
 	@Override
@@ -89,6 +93,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+    ledSubsystem.setToAllianceColor();
 	}
 
 	@Override
@@ -107,6 +112,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+    ledSubsystem.setToAllianceColor();
 	}
 
 	/**
@@ -115,6 +121,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+		ledSubsystem.rainbowLoop();
 	}
 	
 	public static Robot getRobot() {

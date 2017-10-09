@@ -24,6 +24,8 @@ local.properties
 *.war
 *.ear
 
+!libs/*
+
 hs_err_pid*
 
 .idea/
