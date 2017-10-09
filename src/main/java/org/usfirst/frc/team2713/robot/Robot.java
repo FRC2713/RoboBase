@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team2713.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,10 +19,11 @@ import org.usfirst.frc.team2713.robot.subsystems.ExampleSubsystem;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+  private static Robot robotInstance;
+  private static OI oi;
+  
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static OI oi;
-
+ 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -31,6 +33,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+	  DriverStation.reportWarning("System coming alive, captian!", false);
+	  robotInstance = this;
 		oi = new OI();
 		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -112,4 +116,12 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
+	
+	public static Robot getRobot() {
+	  return robotInstance;
+  }
+  
+  public static OI getOI() {
+	  return oi;
+  }
 }
