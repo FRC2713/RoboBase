@@ -14,6 +14,10 @@ public class LEDLoopCommand extends Command {
   private int executedLoops = 0;
   private boolean isFinished = false;
   
+  /**
+   * Fade through a rainbow once
+   * @param ledSubsystem the LED Subsystem
+   */
   public LEDLoopCommand(LEDSubsystem ledSubsystem) {
     this.ledSubsystem = ledSubsystem;
     this.colors = LEDSubsystem.getRainbowLoop(255);
@@ -24,6 +28,13 @@ public class LEDLoopCommand extends Command {
     this.setInterruptible(true);
   }
   
+  /**
+   * Loops through a list of RGBValues, each color shift taking duration
+   * @param ledSubsystem the LED Subsystem
+   * @param colors List of RGBValues to cycle through
+   * @param loops Number of loops to iterate through
+   * @param duration How long each fade should last
+   */
   public LEDLoopCommand(LEDSubsystem ledSubsystem, List<RGBValue> colors, int loops, double duration) {
     this.ledSubsystem = ledSubsystem;
     this.colors = colors;
@@ -48,6 +59,15 @@ public class LEDLoopCommand extends Command {
   @Override
   protected void end() {
     ledSubsystem.getLights().showRGB(0, 0, 0);
+  }
+  
+  @Override
+  protected void interrupted() {
+    /*
+    Do nothing. When gracefully ending, it is OK to go to black
+    but interrupting usually means that another color command is taking over
+    so to avoid a flash to black just keep the last set value
+     */
   }
   
   @Override

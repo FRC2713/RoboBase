@@ -78,7 +78,7 @@ public class LEDSubsystem extends Subsystem {
    * @see RGBValue
    */
   public static List<RGBValue> getRainbowLoop(int numberShifts) {
-    // Adapted from http://www.markandey.com/2012/04/how-to-generate-rainbow-colors.html
+    // Adapted from https://tinyurl.com/y7ubkd9l
     List<RGBValue> colors = new ArrayList<>();
     int frequency = 5 / numberShifts;
     for (int i = 0; i < numberShifts; i++) {

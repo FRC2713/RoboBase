@@ -32,6 +32,7 @@ dependencies {
 	compile wpilib()
 	compile talonSrx()
   compile name: 'mindsensors' // Mindsensors used for https://tinyurl.com/y9k62vlm
+  compileOnly 'org.projectlombok:lombok:1.16.18'
 	testCompile 'junit:junit:4.12'
 }
 

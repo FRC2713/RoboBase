@@ -39,4 +39,10 @@ public class DriveSubsystem extends Subsystem {
     if (Math.abs(speed) < deadbandTolerance) return 0; // Desired speed is under the tolerance, ignore it
     return Math.abs(speed) - Math.abs(deadbandTolerance) * Math.signum(speed);
   }
+  
+  public double getCurvedSpeed(double speed) {
+    double absSpeed = Math.abs(speed) / 100;
+    double squaredSpeed = absSpeed * absSpeed;
+    return squaredSpeed * 100 * Math.signum(speed);
+  }
 }
