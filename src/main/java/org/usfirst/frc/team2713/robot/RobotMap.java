@@ -8,20 +8,23 @@ package org.usfirst.frc.team2713.robot;
  */
 public class RobotMap {
 	// Motors
-	public static int frontLeft = 1;
-	public static int frontRight = 2;
-	public static int backLeft = 3;
-	public static int backRight = 4;
+	public static final int frontLeft = 1;
+	public static final int frontRight = 2;
+	public static final int backLeft = 3;
+	public static final int backRight = 4;
 	
 	// Controllers
-  public static int BACKUP_XBOX_PORT = 0;
-  public static int BACKUP_ATTACK_PORT = 1;
-  public static String XBOX_NAME = "Controller (XBOX 360 For Windows)";
-  public static String FIGHT_NAME = "Mayflash Arcade Stick";
+  public static final int BACKUP_XBOX_PORT = 0;
+  public static final int BACKUP_ATTACK_PORT = 1;
+  public static final String XBOX_NAME = "Controller (XBOX 360 For Windows)";
+  public static final String FIGHT_NAME = "Mayflash Arcade Stick";
 	
 	// Sensors
   
   // SmartDash Settings
+  
+  // Measurements (metric / meters, unless specified)
+  public static double WHEEL_DIAMETER = .5; // TODO Diameter of PART_NUMBER
   
   // Misc
   public static int ledPort = 50;

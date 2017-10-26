@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2713.robot.subsystems;
 
-import com.ctre.MotorControl.CANTalon;
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team2713.robot.RobotMap;

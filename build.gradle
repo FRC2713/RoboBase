@@ -2,8 +2,11 @@ plugins {
 	id "java"
 	id "eclipse"
 	id "idea"
-	id "jaci.openrio.gradle.GradleRIO" version "2017.2.3"
+	id "jaci.openrio.gradle.GradleRIO" version "2017.10.24b"
 }
+
+def TEAM = 2713
+def ROBOT_CLASS = "org.usfirst.frc.team2713.robot.Robot"
 
 idea {
   module {
@@ -12,35 +15,40 @@ idea {
   }
 }
 
-frc {
-	robotClass = 'org.usfirst.frc.team2713.Robot'
-	team = '2713'
-	rioIP = '10.27.13.103'
-}
-
-def robotManifest = {
-	attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
-	attributes 'Robot-Class': frc.robotClass
+deploy {
+  targets {
+    target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
+      team = TEAM
+    }
+  }
+  artifacts {
+    artifact('frcJava', jaci.openrio.gradle.frc.FRCJavaArtifact) {
+      targets << "roborio"
+    }
+  }
 }
 
 repositories {
 	mavenCentral()
-  flatDir name: 'MindSensors', dirs: 'libs/MindSensors'
 }
 
 dependencies {
 	compile wpilib()
-	compile talonSrx()
-  compile name: 'mindsensors' // Mindsensors used for https://tinyurl.com/y9k62vlm
+  compile ctre() // Talon SRX
+
+  compile fileTree(dir: 'libs/MindSensors', include: '*.jar') // Mindsensors used for https://tinyurl.com/y9k62vlm
+  compile fileTree(dir: 'libs/Pathfinder', include: '*.jar')
+
   compileOnly 'org.projectlombok:lombok:1.16.18'
+
 	testCompile 'junit:junit:4.12'
 }
 
 jar {
-	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-	manifest robotManifest
+  from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '4.2'
+	gradleVersion = '4.2.1'
 }
