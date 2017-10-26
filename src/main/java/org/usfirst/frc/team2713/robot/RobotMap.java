@@ -13,6 +13,12 @@ public class RobotMap {
 	public static int backLeft = 3;
 	public static int backRight = 4;
 	
+	// Controllers
+  public static int BACKUP_XBOX_PORT = 0;
+  public static int BACKUP_ATTACK_PORT = 1;
+  public static String XBOX_NAME = "Controller (XBOX 360 For Windows)";
+  public static String FIGHT_NAME = "Mayflash Arcade Stick";
+	
 	// Sensors
   
   // SmartDash Settings

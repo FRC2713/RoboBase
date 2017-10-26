@@ -19,13 +19,7 @@ public class LEDLoopCommand extends Command {
    * @param ledSubsystem the LED Subsystem
    */
   public LEDLoopCommand(LEDSubsystem ledSubsystem) {
-    this.ledSubsystem = ledSubsystem;
-    this.colors = LEDSubsystem.getRainbowLoop(255);
-    this.loops = 1;
-    this.duration = 0.05;
-    
-    requires(ledSubsystem);
-    this.setInterruptible(true);
+    this(ledSubsystem, LEDSubsystem.getRainbowLoop(255), 1, 0.05);
   }
   
   /**

@@ -14,12 +14,12 @@ public class DriveSubsystem extends Subsystem {
   private CANTalon backRight = new CANTalon(RobotMap.backRight);
   
   public DriveSubsystem() {
-    startTeleop();
+  
   }
   
   @Override
   protected void initDefaultCommand() {
-    startTeleop();
+  
   }
   
   public void startTeleop() {
@@ -36,13 +36,13 @@ public class DriveSubsystem extends Subsystem {
    * @return The corrected speed
    */
   public double getDeadband(double speed, double deadbandTolerance) {
-    if (Math.abs(speed) < deadbandTolerance) return 0; // Desired speed is under the tolerance, ignore it
-    return Math.abs(speed) - Math.abs(deadbandTolerance) * Math.signum(speed);
+    return Math.max(0, // If deadband is greater than abs(speed), do nothing
+      Math.abs(speed) - Math.max(deadbandTolerance, 0) // Subtract abs(speed) from larger of deadbandTolerance and 0
+    ) * Math.signum(speed); // Restore original sign sign of speed
   }
   
   public double getCurvedSpeed(double speed) {
-    double absSpeed = Math.abs(speed) / 100;
-    double squaredSpeed = absSpeed * absSpeed;
-    return squaredSpeed * 100 * Math.signum(speed);
+    // See https://www.wolframalpha.com/input/?i=(abs(x)%2F100)%5E2+*+100+where+x%3D45
+    return Math.pow(Math.abs(speed) / 100, 2) * 100;
   }
 }
